@@ -74,7 +74,7 @@ GitHub Copilot CLI supports interactive terminal workflows where learners can re
 ### References
 
 - https://docs.github.com/copilot/how-tos/use-copilot-agents/use-copilot-cli
-- https://docs.github.com/en/actions/reference/events-that-trigger-workflows#push
+- https://docs.github.com/en/copilot/concepts/agents/about-copilot-cli
 
 ### Activity: Document a Development Workflow
 
