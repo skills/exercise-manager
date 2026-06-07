@@ -16,7 +16,7 @@ assignees: ''
 
 ### Relationships to other exercises
 
-- **Previous Exercise:** Introduction to GitHub Copilot CLI or Copilot CLI for beginners
+- **Previous Exercise:** Introduction to GitHub Copilot CLI
 - **Next Exercise:** Advanced automation with Copilot agents, skills, and MCP servers
 
 ---
@@ -80,14 +80,18 @@ GitHub Copilot CLI supports interactive terminal workflows where learners can re
 
 1. Start Copilot CLI in the exercise repository.
 1. Use file or directory context with `@` to ask Copilot to review the starter application.
+1. Ask Copilot CLI to identify a small refactoring opportunity in the starter application.
+1. Ask Copilot CLI to debug an intentionally described symptom in the starter application.
+1. Ask Copilot CLI to suggest tests for the reviewed or debugged behavior.
 1. Use `/plan` to outline a safe improvement to the starter application.
 1. Use `/review` to inspect the planned or completed changes.
+1. Ask Copilot CLI to summarize the Git changes or draft a commit message.
 1. Update `COPILOT_CLI_WORKFLOW.md` with the slash commands and workflow sequence used.
 
 ### Transition
 
 - **Actions Trigger:** [`push`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#push)
-- **Grading-Check:** Verify `COPILOT_CLI_WORKFLOW.md` exists and includes `/plan`, `/review`, and a description of using `@` context.
+- **Grading-Check:** Verify `COPILOT_CLI_WORKFLOW.md` exists and includes `/plan`, `/review`, `@` context, refactoring, debugging, tests, and Git summary notes.
 
 ## Step 2 - Configure Agents and Custom Instructions
 
@@ -97,11 +101,12 @@ Your team wants Copilot CLI responses to match project expectations without repe
 
 ### Theory
 
-Agents give Copilot a specialized role for a class of work, while custom instructions provide durable project context and standards. In Copilot CLI, learners can use built-in agents, switch agents with `/agent`, or define repository agents as `.agent.md` files. Repository custom instructions help Copilot follow team conventions across prompts.
+Agents give Copilot a specialized role for a class of work, while custom instructions provide durable project context and standards. In Copilot CLI, learners can use built-in agents such as Plan for implementation planning and Code-review for focused review, switch agents with `/agent`, or define repository agents as `.agent.md` files. Repository custom instructions help Copilot follow team conventions across prompts.
 
 - Agents are best for broad expertise, such as code review, testing, or documentation.
 - Custom instructions are best for standards that should apply across the repository.
 - Agent files use markdown instructions with frontmatter metadata so Copilot can identify the agent and its purpose.
+- A custom agent file should include YAML frontmatter with at least a `description` field, followed by markdown instructions that define the agent's specialty.
 
 ### References
 
@@ -162,11 +167,12 @@ Your local repository context is useful, but real development often needs live c
 
 ### Theory
 
-Model Context Protocol, or MCP, is an open standard for connecting Copilot to external systems and tools. Copilot CLI supports MCP servers, including the built-in GitHub MCP server and additional local or remote servers. MCP helps Copilot gather live context when a workflow needs repository data, documentation, or other tool-backed information.
+Model Context Protocol, or MCP, is an open standard for connecting Copilot to external systems and tools. Copilot CLI supports MCP servers, including the built-in GitHub MCP server and additional local or remote servers. An MCP server is a tool provider that exposes external data or actions to Copilot; unlike agents, it does not define a persona, and unlike skills, it does not define task instructions. MCP helps Copilot gather live context when a workflow needs repository data, documentation, or other tool-backed information.
 
 - MCP servers provide tools and data sources beyond the current prompt and selected files.
 - The GitHub MCP server is built in for Copilot CLI.
 - Project-level MCP configuration can document the servers needed for a repository workflow.
+- Use agents for specialized reasoning, skills for repeatable task steps, and MCP servers for external context or tool access.
 
 ### References
 
@@ -176,7 +182,7 @@ Model Context Protocol, or MCP, is an open standard for connecting Copilot to ex
 ### Activity: Add MCP Configuration Notes
 
 1. Use `/mcp show` in Copilot CLI to inspect configured MCP servers.
-1. Create `.mcp.json` or an MCP setup section in `COPILOT_CLI_WORKFLOW.md` for the exercise workflow.
+1. Create `.mcp.json` with a project-level MCP server configuration for the starter repository.
 1. Document how the GitHub MCP server supports issue, pull request, and repository context.
 1. Add an example of when documentation or filesystem MCP context would improve a Copilot CLI answer.
 
@@ -184,7 +190,7 @@ Model Context Protocol, or MCP, is an open standard for connecting Copilot to ex
 
 - **Actions Trigger:** [`push`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#push)
 - **Grading-Check:** Verify `COPILOT_CLI_WORKFLOW.md` includes `/mcp show` and a short explanation of MCP.
-- **Grading-Check:** Verify either `.mcp.json` exists or the workflow notes explain why the built-in GitHub MCP server is sufficient for the exercise.
+- **Grading-Check:** Verify `.mcp.json` exists and includes an `mcpServers` configuration.
 
 ## Step 5 - Put It All Together
 
